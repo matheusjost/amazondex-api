@@ -59,7 +59,7 @@ public class Usuario implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return switch (this.getRole()) {
-            case ADMINISTRADOR ->
+            case ADMIN ->
                     List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_NORMAL_USER"));
             case BIOLOGO, ALUNO ->
                     List.of(new SimpleGrantedAuthority("ROLE_NORMAL_USER"));

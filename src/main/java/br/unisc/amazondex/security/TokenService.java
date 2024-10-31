@@ -24,7 +24,7 @@ public class TokenService {
         try{
             Algorithm algorithm = Algorithm.HMAC256(secret);
             String token = JWT.create()
-                    .withIssuer("systc")
+                    .withIssuer("amazondex")
                     .withSubject(usuario.getLogin())
                     .withExpiresAt(generateExpirationDate())
                     .sign(algorithm);

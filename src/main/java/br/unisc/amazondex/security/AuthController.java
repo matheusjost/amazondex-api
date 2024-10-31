@@ -17,6 +17,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/auth")
@@ -94,7 +96,7 @@ public class AuthController {
 
     private void validateUserRegister(RegisterDTO dto, Integer id) throws AmazondexException {
         if (validateRegisterDTO(dto)) throw new AmazondexException("Usuário inválido");
-        if (id == null && validateUniqueUser(dto)) throw new AmazondexException("Usuário já existe");
+        if (validateUniqueUser(dto, id)) throw new AmazondexException("Usuário já existe");
     }
 
     private boolean validateLoginDTO(LoginDTO dto) {
@@ -105,8 +107,12 @@ public class AuthController {
         return dto.login() == null || dto.senha() == null || dto.email() == null || dto.nome() == null || dto.role() == null;
     }
 
-    private boolean validateUniqueUser(RegisterDTO dto) {
-        return usuarioRepository.findByEmail(dto.email()) != null || usuarioRepository.findByLogin(dto.login()) != null;
+    private boolean validateUniqueUser(RegisterDTO dto, Integer id) {
+        Usuario uEmail = usuarioRepository.findByEmail(dto.email());
+        Usuario uLogin = usuarioRepository.findByLogin(dto.login());
+
+        if (id == null) return uEmail != null || uLogin != null;
+        return !Objects.equals(uEmail.getId(), id) || !Objects.equals(uLogin.getId(), id);
     }
 
 }
