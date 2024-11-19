@@ -2,6 +2,7 @@ package br.unisc.amazondex.controller;
 
 import br.unisc.amazondex.pojo.ApiResponseDTO;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 import java.net.URI;
@@ -20,8 +21,12 @@ public class ResponseHandler {
         return ResponseEntity.status(status).body(ApiResponseDTO.okApiResponse(data, status));
     }
 
+    public static ResponseEntity<byte[]> okApiResponse(String mt, byte[] file) {
+        return ResponseEntity.ok().contentType(MediaType.parseMediaType(mt)).body(file);
+    }
+
     public static ResponseEntity<ApiResponseDTO> createdApiResponse(Object id) {
-        return ResponseEntity.created(URI.create(id.toString())).body(ApiResponseDTO.okApiResponse(HttpStatus.CREATED));
+        return ResponseEntity.created(URI.create(id.toString())).body(ApiResponseDTO.okApiResponse(id, HttpStatus.CREATED));
     }
 
     public static ResponseEntity<ApiResponseDTO> errorApiResponse(HttpStatus status, String error, String path) {
