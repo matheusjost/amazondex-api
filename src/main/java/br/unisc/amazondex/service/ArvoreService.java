@@ -8,6 +8,8 @@ import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ArvoreService {
@@ -23,6 +25,10 @@ public class ArvoreService {
 
     public ArvoreDTO buscarPorArvoreId(Integer arvoreId) {
         return arvoreRepository.findArvoreByIdWithAllRelations(arvoreId).orElseThrow(NoResultException::new);
+    }
+
+    public List<ArvoreDTO> buscarTodasAsArvores() {
+        return arvoreRepository.findAllArvoresWithAllRelations();
     }
 
     public Arvore salvar(ArvoreCommand cmd) {

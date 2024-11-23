@@ -3,7 +3,6 @@ package br.unisc.amazondex.controller;
 import br.unisc.amazondex.command.ArvoreCommand;
 import br.unisc.amazondex.entity.Arvore;
 import br.unisc.amazondex.pojo.ApiResponseDTO;
-import br.unisc.amazondex.pojo.ArvoreDTO;
 import br.unisc.amazondex.service.ArvoreService;
 import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +40,11 @@ public class ArvoreController extends AmazondexController<ArvoreCommand> {
 
     @Override
     public ResponseEntity<ApiResponseDTO> listAll() {
-        return null;
+        try {
+            return ResponseHandler.okApiResponse(arvoreService.buscarTodasAsArvores());
+        } catch (Exception ex) {
+            return ResponseHandler.errorApiResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
+        }
     }
 
     @Override
