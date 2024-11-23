@@ -5,6 +5,7 @@ import br.unisc.amazondex.entity.Arquivo;
 import br.unisc.amazondex.exception.AmazondexException;
 import br.unisc.amazondex.pojo.ApiResponseDTO;
 import br.unisc.amazondex.service.ArquivoService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,7 @@ public class ArquivoController extends AmazondexController<ArvoreCommand> {
     private final ArquivoService arquivoService;
 
     @Override
+    @Operation(summary = "Upload de arquivo")
     public ResponseEntity<ApiResponseDTO> upload(@RequestParam("file") MultipartFile file) {
         try {
             String path = arquivoService.armazenarArquivo(file);
@@ -37,6 +39,7 @@ public class ArquivoController extends AmazondexController<ArvoreCommand> {
     }
 
     @Override
+    @Operation(summary = "Buscar view de arquivo por ID")
     public ResponseEntity<byte[]> view(@PathVariable String id) {
         try {
             String caminho = arquivoService.get(Integer.valueOf(id)).getCaminho();

@@ -6,7 +6,6 @@ import br.unisc.amazondex.exception.AmazondexException;
 import br.unisc.amazondex.pojo.ApiResponseDTO;
 import br.unisc.amazondex.repository.UsuarioRepository;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
@@ -28,9 +27,9 @@ public class AuthController {
     private final UsuarioRepository usuarioRepository;
     private final TokenService tokenService;
 
-    @Operation(description = "Método referente ao login de usuário.")
-    @ApiResponse(responseCode = "200", description = "Usuário autenticado com sucesso", content = @Content)
-    @ApiResponse(responseCode = "401", description = "Usuário ou senha inválidos", content = @Content)
+    @Operation(summary = "Login de usuário")
+    @ApiResponse(responseCode = "200", description = "Usuário autenticado com sucesso")
+    @ApiResponse(responseCode = "401", description = "Usuário ou senha inválidos")
     @PostMapping
     public ResponseEntity<ApiResponseDTO> login(@RequestBody LoginDTO dto){
         try {
@@ -49,7 +48,7 @@ public class AuthController {
         }
     }
 
-    @Operation(description = "Método referente ao registro de usuário.")
+    @Operation(summary = "Registro de usuário")
     @ApiResponse(responseCode = "201", description = "Usuário registrado com sucesso")
     @ApiResponse(responseCode = "400", description = "Usuário já existe")
     @SecurityRequirement(name = "Bearer", scopes = "admin")
@@ -71,7 +70,7 @@ public class AuthController {
         }
     }
 
-    @Operation(description = "Método referente ao registro de usuário.")
+    @Operation(summary = "Atualizar usuário")
     @ApiResponse(responseCode = "201", description = "Usuário atualizado com sucesso")
     @ApiResponse(responseCode = "400", description = "Usuário já existe")
     @ApiResponse(responseCode = "500", description = "Erro ao atualizar usuário")
