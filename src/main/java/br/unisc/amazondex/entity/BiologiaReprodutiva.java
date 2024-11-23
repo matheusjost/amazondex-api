@@ -25,7 +25,7 @@ public class BiologiaReprodutiva implements Serializable {
     private Integer id;
 
     @JoinColumn(name = "arvore_id", referencedColumnName = "id")
-    @ManyToOne
+    @OneToOne
     private Arvore arvore;
 
     @Column(name = "tipo")

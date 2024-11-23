@@ -24,7 +24,7 @@ public class PaisagismoFoto implements Serializable {
     private Integer id;
 
     @JoinColumn(name = "paisagismo_id", referencedColumnName = "id")
-    @ManyToOne
+    @OneToOne
     private Paisagismo paisagismo;
 
     @JoinColumn(name = "foto_id", referencedColumnName = "id")

@@ -24,10 +24,19 @@ public class Aproveitamento implements Serializable {
     private Integer id;
 
     @JoinColumn(name = "arvore_id", referencedColumnName = "id")
-    @ManyToOne
+    @OneToOne
     private Arvore arvore;
 
     @Column(name = "descricao")
     private String descricao;
+
+    @OneToOne(mappedBy = "aproveitamento", cascade = CascadeType.ALL)
+    private Biotecnologia biotecnologia;
+
+    @OneToOne(mappedBy = "aproveitamento", cascade = CascadeType.ALL)
+    private Alimentacao alimentacao;
+
+    @OneToOne(mappedBy = "aproveitamento", cascade = CascadeType.ALL)
+    private Bioatividade bioatividade;
 
 }

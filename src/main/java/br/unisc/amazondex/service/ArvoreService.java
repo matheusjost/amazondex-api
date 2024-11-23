@@ -2,7 +2,9 @@ package br.unisc.amazondex.service;
 
 import br.unisc.amazondex.command.ArvoreCommand;
 import br.unisc.amazondex.entity.Arvore;
+import br.unisc.amazondex.pojo.ArvoreDTO;
 import br.unisc.amazondex.repository.*;
+import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,10 @@ public class ArvoreService {
     private final CultivoService cultivoService;
     private final PaisagismoService paisagismoService;
     private final AproveitamentoService aproveitamentoService;
+
+    public ArvoreDTO buscarPorArvoreId(Integer arvoreId) {
+        return arvoreRepository.findArvoreByIdWithAllRelations(arvoreId).orElseThrow(NoResultException::new);
+    }
 
     public Arvore salvar(ArvoreCommand cmd) {
         Arvore arvore = new Arvore();

@@ -3,7 +3,9 @@ package br.unisc.amazondex.controller;
 import br.unisc.amazondex.command.ArvoreCommand;
 import br.unisc.amazondex.entity.Arvore;
 import br.unisc.amazondex.pojo.ApiResponseDTO;
+import br.unisc.amazondex.pojo.ArvoreDTO;
 import br.unisc.amazondex.service.ArvoreService;
+import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +30,13 @@ public class ArvoreController extends AmazondexController<ArvoreCommand> {
 
     @Override
     public ResponseEntity<ApiResponseDTO> get(@PathVariable String id) {
-        return null;
+        try {
+            return ResponseHandler.okApiResponse(arvoreService.buscarPorArvoreId(Integer.parseInt(id)));
+        } catch (NoResultException ex) {
+            return ResponseHandler.errorApiResponse(HttpStatus.NOT_FOUND, "Arvore não encontrada");
+        } catch (Exception ex) {
+            return ResponseHandler.errorApiResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
+        }
     }
 
     @Override

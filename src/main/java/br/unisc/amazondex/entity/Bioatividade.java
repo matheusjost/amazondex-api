@@ -24,7 +24,7 @@ public class Bioatividade implements Serializable {
     private Integer id;
 
     @JoinColumn(name = "aproveitamento_id", referencedColumnName = "id")
-    @ManyToOne
+    @OneToOne
     private Aproveitamento aproveitamento;
 
     @Column(name = "descricao")

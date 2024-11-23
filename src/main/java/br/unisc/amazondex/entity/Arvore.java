@@ -7,6 +7,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "arvore")
@@ -34,5 +36,23 @@ public class Arvore implements Serializable {
 
     @Column(name = "regeneracao_natural")
     private String regeneracaoNatural;
+
+    @OneToMany(mappedBy = "arvore", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<OcorrenciaNatural> ocorrenciaNatural;
+
+    @OneToOne(mappedBy = "arvore", cascade = CascadeType.ALL)
+    private BiologiaReprodutiva biologiaReprodutiva;
+
+    @OneToMany(mappedBy = "arvore", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<FotoArvore> fotoArvore;
+
+    @OneToOne(mappedBy = "arvore", cascade = CascadeType.ALL)
+    private Paisagismo paisagismo;
+
+    @OneToOne(mappedBy = "arvore", cascade = CascadeType.ALL)
+    private Aproveitamento aproveitamento;
+
+    @OneToOne(mappedBy = "arvore", cascade = CascadeType.ALL)
+    private Cultivo cultivo;
 
 }

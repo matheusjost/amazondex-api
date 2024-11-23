@@ -24,10 +24,13 @@ public class Paisagismo implements Serializable {
     private Integer id;
 
     @JoinColumn(name = "arvore_id", referencedColumnName = "id")
-    @ManyToOne
+    @OneToOne
     private Arvore arvore;
 
     @Column(name = "descricao")
     private String descricao;
+
+    @OneToOne(mappedBy = "paisagismo", cascade = CascadeType.ALL)
+    private PaisagismoFoto paisagismoFoto;
 
 }
