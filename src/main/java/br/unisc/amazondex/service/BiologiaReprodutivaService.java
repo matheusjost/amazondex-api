@@ -20,6 +20,7 @@ public class BiologiaReprodutivaService {
 
         BiologiaReprodutiva biologiaReprodutiva = new BiologiaReprodutiva();
         biologiaReprodutiva.setArvore(arvore);
+        biologiaReprodutiva.setTipo(cmd.tipo());
         biologiaReprodutiva.setDescricao(cmd.descricao());
 
         if (cmd.id() != null) {
